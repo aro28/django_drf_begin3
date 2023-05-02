@@ -5,11 +5,22 @@ from rest_framework.generics import get_object_or_404
 
 from . serializers import DoctorSerializers, PatientSerializers
 from . models import Doctor, Patient
+from .my_generic_view import MyGenericListCreateView, MyGenericRetrieveUpdateDestroyView
 
-# через класс
+# CLASS-BASED VIEW
 class PatientListCreateViewAPIview(generics.ListCreateAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializers
+
+# CLASS-BASED VIEW inheritated from my generic view
+class PatientListCreateView(MyGenericListCreateView): #мы наследуемся от универсального класса(my_generic_view) где находятся POST,GET,DELETE
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializers
+class PatientRetrieveUpdatDestroyView(MyGenericRetrieveUpdateDestroyView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializers
+
+
 #Через функцию
 @api_view(http_method_names=['GET', 'POST'])
 def doctor_list_create_api_view(request):
