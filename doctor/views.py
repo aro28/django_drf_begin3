@@ -6,14 +6,23 @@ from rest_framework.generics import get_object_or_404
 from . serializers import DoctorSerializers, PatientSerializers
 from . models import Doctor, Patient
 from .my_generic_view import MyGenericListCreateView, MyGenericRetrieveUpdateDestroyView
+from rest_framework import viewsets
 
 # CLASS-BASED VIEW
 class PatientListCreateViewAPIview(generics.ListCreateAPIView):
+    # below comment goes to http://127.0.0.1:8000/swagger/
+    """
+      Doctor Create and List View
+      :params limit: int
+
+      """
     queryset = Patient.objects.all()
     serializer_class = PatientSerializers
 
+
+
 # CLASS-BASED VIEW inheritated from my generic view
-class PatientListCreateView(MyGenericListCreateView): #мы наследуемся от универсального класса(my_generic_view) где находятся POST,GET,DELETE
+class PatientListCreateView(MyGenericListCreateView): #мы наследуемся от универсального класса(my_generic_view) где находятся POST,GET,DELETE 
     queryset = Patient.objects.all()
     serializer_class = PatientSerializers
 class PatientRetrieveUpdatDestroyView(MyGenericRetrieveUpdateDestroyView):
@@ -85,3 +94,11 @@ def patient_retrieve_update_delete_api_view(request, pk):
     elif request.method == 'DELETE':
         patient.delete()
         return Response(status=204)
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializers
+
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializers

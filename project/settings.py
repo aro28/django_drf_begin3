@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'doctor',
     'rest_framework',
+    'drf_yasg',
 
 ]
 
