@@ -45,7 +45,7 @@ def doctor_list_create_api_view(request):
         else:
             return Response(serializer.errors, status=400)
 
-    # return Response(serializer.data) # ,берет патоновский и возвращает JSON
+    # return Response(serializer.data) # ,берет питоновский и возвращает JSON
 @api_view(http_method_names=['GET', 'PUT', 'DELETE'])
 def doctor_retrieve_update_delete_api_view(request, pk):
     doctor = get_object_or_404(Doctor, pk=pk)
